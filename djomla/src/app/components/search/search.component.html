@@ -1,0 +1,55 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <div class="form-row">
+    <div class="col-md-3">
+      <div class="form-row">
+        <select
+          class="selectpicker form-control"
+          data-style="btn-outline-success"
+          data-live-search="true"
+          formControlName="marka"
+          (change)="onMarkChange($event.target.value)"
+        >
+          <option>Izaberite marku</option>
+          <option *ngFor="let mark of marks">{{ mark }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-row">
+        <select
+          class="selectpicker form-control"
+          data-style="btn-outline-success"
+          data-live-search="true"
+          formControlName="model"
+          (change)="onModelChange($event.target.value)"
+        >
+        <option *ngFor="let model of models" [value]="model">{{model}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-row">
+        <select
+          class="selectpicker form-control"
+          data-style="btn-outline-success"
+          data-live-search="true"
+          (change)="onModelChange($event.target.value)"
+        >
+          <option>Izaberite kategoriju</option>
+          <option *ngFor="let category of categories">{{ category }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-row">
+        <input type="text" placeholder="name" formControlName="name" id="name"
+        >
+      </div>
+      <div class="form-row">
+        <button type="submit" class="form-control mt-1 btn btn-outline-primary">
+          Pretraga
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

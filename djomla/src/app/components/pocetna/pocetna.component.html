@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row pocetna align-items-center">
+    <div class="col-md-8">
+      <img
+        src="assets/imgs/Pocetna4.jpg"
+        class="img-fluid m-auto d-block"
+        alt="Responsive image"
+      />
+    </div>
+    <div class="col-md-4">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Delovi Djomla</h1>
+          <p class="lead">
+            This is a modified jumbotron that occupies the entire horizontal
+            space of its parent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row search-row">
+    <div class="col-md-8 col-sm-12">
+      
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <div class="row">
+    <form>
+      <select
+        class="selectpicker form-control"
+        data-style="btn-outline-success"
+        data-live-search="true"
+        (change)="onMarkChange($event.target.value)"
+      >
+        <option>Izaberite marku</option>
+        <option *ngFor="let mark of marks">{{ mark }}</option>
+      </select>
+      <select
+        class="selectpicker form-control"
+        data-style="btn-outline-success"
+        data-live-search="true"
+      >
+        <option *ngFor="let n of niz" [value]="n">{{
+          n
+        }}</option>
+      </select>
+    </form>
+    <div class="col-md-6">
+      <div class="form-row"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-row"></div>
+    </div>
+  </div>
+</div>
