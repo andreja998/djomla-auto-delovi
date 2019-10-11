@@ -15,9 +15,7 @@ export class PocetnaComponent implements OnInit {
   niz: string[];
 
   constructor(private carService: CarService, private ref: ChangeDetectorRef) {
-    setInterval(() => {
-      this.ref.detectChanges();
-    }, 100);
+   
    }
 
   ngOnInit() {
