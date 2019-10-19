@@ -1,39 +1,39 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CarService } from 'src/app/services/car.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
+import { CarService } from "src/app/services/car.service";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  FormControl
+} from "@angular/forms";
+import { SearchItem } from "src/app/models/utils";
+import { SearchService } from 'src/app/services/search.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pocetna',
-  templateUrl: './pocetna.component.html',
-  styleUrls: ['./pocetna.component.css'],
+  selector: "app-pocetna",
+  templateUrl: "./pocetna.component.html",
+  styleUrls: ["./pocetna.component.css"],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class PocetnaComponent implements OnInit {
 
-  searchGroup: FormGroup;
-  marks: string[];
-  niz: string[];
+  searchName = 'Brza pretraga';
+  searchMode = 'simple';
 
-  constructor(private carService: CarService, private ref: ChangeDetectorRef) {
-   
-   }
+  constructor(private carService: CarService, private router: Router) {}
 
   ngOnInit() {
-    this.carService.getMarks().subscribe(marks => {
-      console.log(marks);
-      this.marks = marks;
-    });
   }
 
-  onMarkChange(value: any) {
-    this.carService.getModels('a').subscribe(models => {
-      console.log('Radim u pocetnoj :D');
-      // this.models.push({ model: 'Astra'});
-      // this.models.push({ model: 'Corsa'});
-      this.marks.push('Asd');
-      this.niz = models;
-      console.log(this.niz);
-    });
+  onSearch(event: any) {
+    this.router.navigate(['delovi']);
   }
 
 }

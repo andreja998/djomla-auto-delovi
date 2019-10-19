@@ -19,38 +19,9 @@
       </div>
     </div>
   </div>
-  <div class="row search-row">
-    <div class="col-md-8 col-sm-12">
-      
-    </div>
-    <div class="col-md-4"></div>
-  </div>
   <div class="row">
-    <form>
-      <select
-        class="selectpicker form-control"
-        data-style="btn-outline-success"
-        data-live-search="true"
-        (change)="onMarkChange($event.target.value)"
-      >
-        <option>Izaberite marku</option>
-        <option *ngFor="let mark of marks">{{ mark }}</option>
-      </select>
-      <select
-        class="selectpicker form-control"
-        data-style="btn-outline-success"
-        data-live-search="true"
-      >
-        <option *ngFor="let n of niz" [value]="n">{{
-          n
-        }}</option>
-      </select>
-    </form>
-    <div class="col-md-6">
-      <div class="form-row"></div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-row"></div>
+    <div class="col-md-12">
+      <app-search [searchName]="searchName" [searchMode]="searchMode" (search)="onSearch($event)"></app-search>
     </div>
   </div>
 </div>

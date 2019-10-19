@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { of, Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { SearchItem, Part } from '../models/utils';
 
 @Injectable({
   providedIn: "root"
@@ -9,36 +10,64 @@ import { map } from "rxjs/operators";
 export class CarService {
   constructor(private http: HttpClient) {}
 
-  getMarks(): Observable<string[]> {
+  getMarks(): Observable<SearchItem[]> {
     return this.http.get("https://reqres.in/api/users?page=2", {}).pipe(
       map((res: Response) => {
-        console.log(res["data"].length);
-        const marks: string[] = [];
-        marks.push("Opel");
-        marks.push("BMW");
-        marks.push("Honda");
+        console.log(res['data'].length);
+        const marks: SearchItem[] = [];
+        marks.push(new SearchItem('Opel'));
+        marks.push(new SearchItem('BMW'));
 
         return marks;
       })
     );
   }
 
-  getModels(mark: string): Observable<string[]> {
+  getModels(mark: string): Observable<SearchItem[]> {
     return this.http.get("https://reqres.in/api/users?page=1", {}).pipe(
       map((res: Response) => {
-        const models: string[] = [];
-        models.push('Astra');
-        models.push('Corsa');
+        const models: SearchItem[] = [];
+        if (mark === 'Opel') {
+          models.push(new SearchItem('Astra'));
+          models.push(new SearchItem('Corsa'));
+        } else {
+          models.push(new SearchItem('320 D'));
+          models.push(new SearchItem('318 D'));
+        }
 
         return models;
       })
     );
   }
 
-  getParts(model: string, mark: string): Observable<Object[]> {
-    let parts = new Array(0);
+  getPartsByCategory(category: string, subCat: string) {
+    let jsonToSend = { category, subCat };
+    console.log(jsonToSend);
+    return this.http.post("https://reqres.in/api/users?page=2", jsonToSend).pipe(
+      map((res: Response) => {
+        const parts: Part[] = [];
+        for (let i = 11; i < 30; i++) {
+          parts.push(new Part(i.toString(), i.toString(), 'hbxcmvxmcbvxcv', '4299 din', 'Opel', 'Corsa', 'Kat1', ['sub1', 'sub2']));
+        }
 
-    return of(parts);
+        return parts;
+      })
+    );
+  }
+
+  getPartsByModel(model: string, mark: string, category?: string, subCat?: string): Observable<Part[]> {
+    let jsonToSend = { mark, model, category, subCat };
+    console.log(jsonToSend);
+    return this.http.post("https://reqres.in/api/users?page=2", jsonToSend).pipe(
+      map((res: Response) => {
+        const parts: Part[] = [];
+        for (let i = 0; i < 5000; i++) {
+          parts.push(new Part(i.toString(), i.toString(), 'asdasdssdsdfsdfsasdasdssdsdfsdfsasdasdssdsdfsdfsasdasdssdsdfsdfsasdasdssdsdfsdfsasdasdssdsdfsdfsasdasdssdsdfsdfs', '1550 din', 'Opel', 'Astra', 'Kat1', ['sub1', 'sub2']));
+        }
+
+        return parts;
+      })
+    );
   }
 
   getPart(partId: number): Observable<Object> {
@@ -47,17 +76,31 @@ export class CarService {
     return of(part);
   }
 
-  getCategories(model?: string, mark?: string): Observable<string[]> {
+  getCategories(model?: string, mark?: string): Observable<SearchItem[]> {
      return this.http.get("https://reqres.in/api/users?page=2", {}).pipe(
       map((res: Response) => {
-        const categories = new Array(0);
-        categories.push('Svecica');
-        categories.push('Nisdad');
+        const categories: SearchItem[] = [];
+        for (let i = 0; i < 20; i++) {
+          categories.push(new SearchItem('Kategorija ' + i));
+        }
 
         return categories;
       })
     );
   }
+
+  getSubCategories(category?: string): Observable<SearchItem[]> {
+    return this.http.get("https://reqres.in/api/users?page=2", {}).pipe(
+     map((res: Response) => {
+       const categories: SearchItem[] = [];
+       for (let i = 16; i < 31; i++) {
+         categories.push(new SearchItem('Potkategorija ' + i));
+       }
+
+       return categories;
+     })
+   );
+ }
 
   createPart(part: Object): Observable<any> {
     return of(undefined);
